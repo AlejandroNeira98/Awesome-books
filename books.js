@@ -4,20 +4,30 @@ const submitButton = document.getElementById('submit-button');
 let books = [];
 var removeBtns = document.querySelectorAll(".remove-btn");
 
-/* window.addEventListener('load', () => {
+window.addEventListener('load', () => {
   if (JSON.parse(localStorage.getItem('books')) !== null){
     books = JSON.parse(localStorage.getItem('books'));
     books.forEach(element => {
-      addBook(element);
+      addBookToDocument(element);
     })
   }
-}); */
 
-function addBook(book){
+  submitButton.addEventListener('click', function(e){
+    e.preventDefault();
+    let author = authorInput.value;
+    let title = titleInput.value;
+    let book = {'title': title, 'author': author}
+    addBookToLocalStorage(book);
+  })
+});
 
+function addBookToLocalStorage(book) {
   books.push(book);
   localStorage.setItem('books', JSON.stringify(books));
+  addBookToDocument(book);
+}
 
+function addBookToDocument(book){
   let booksDiv = document.getElementById('books');
   let bookDiv = document.createElement('div');
   let title = document.createElement('p');
@@ -32,7 +42,10 @@ function addBook(book){
   remove.innerText = "Remove";
 
   bookDiv.append(title, author, remove);
-  booksDiv.append(bookDiv);    
+  booksDiv.append(bookDiv);   
+  remove.addEventListener('click', function (e) {
+    removeBtnEventListener(remove, book.title, book.author);
+  }); 
 }
 
 function removeBook(book){
@@ -40,22 +53,8 @@ function removeBook(book){
   localStorage.setItem('books', JSON.stringify(books));
 }
 
-submitButton.addEventListener('click', function(e){
-  e.preventDefault();
-  let author = authorInput.value;
-  let title = titleInput.value;
-  let book = {'title': title, 'author': author}
-  addBook(book);
-  var removeBtns = document.querySelectorAll(".remove-btn");
-
-  removeBtns.forEach(element => {
-  element.addEventListener('click', function(){
-   let book = {'title': element.parentElement.querySelector('.title').innerText, 'author': element.parentElement.querySelector('.author').innerText};
-   removeBook(book);
-   element.parentElement.remove();
-  });
-});
-
-})
-
-
+function removeBtnEventListener(element, title, author) {
+  let book = {'title': title, 'author': author};
+  removeBook(book);
+  element.parentElement.remove();
+}
