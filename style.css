@@ -20,7 +20,7 @@ body {
 }
 
 #books > div:nth-child(odd) {
-  background-color: #dddddd;
+  background-color: #ddd;
 }
 
 #books > div > p {
