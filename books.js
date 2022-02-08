@@ -1,15 +1,15 @@
 const titleInput = document.getElementById('title-input');
 const authorInput = document.getElementById('author-input');
 const submitButton = document.getElementById('submit-button');
-var books = [];
+let books = [];
 
 function removeBook(book) {
-  books = books.filter( element => JSON.stringify(element) !== JSON.stringify(book));  
+  books = books.filter((element) => JSON.stringify(element) !== JSON.stringify(book));
   localStorage.setItem('books', JSON.stringify(books));
 }
 
 function removeBtnEventListener(element, title, author) {
-  const book = {'title': title , 'author': author };
+  const book = { title, author };
   removeBook(book);
   element.parentElement.remove();
 }
