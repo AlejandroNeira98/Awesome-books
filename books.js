@@ -32,18 +32,20 @@ class methods {
       const bookDiv = document.createElement('div');
       bookDiv.setAttribute('data-time', book.time);
       
-      const title = document.createElement('p');
-      title.classList.add('title');
-      const author = document.createElement('p');
-      author.classList.add('author');
+      const bookDesc = document.createElement('p');
+      bookDesc.classList.add('book-description');
+      // title.classList.add('title');
+      // const author = document.createElement('p');
+      // author.classList.add('author');
       const remove = document.createElement('button');
       remove.classList.add('remove-btn');
 
-      title.innerText = book.title;
-      author.innerText = book.author;
+      // title.innerText = book.title;
+      // author.innerText = book.author;
+      bookDesc.innerText = `"${book.title}" by ${book.author}`;
       remove.innerText = 'Remove';
 
-      bookDiv.append(title, author, remove);
+      bookDiv.append(bookDesc, remove);
       booksDiv.append(bookDiv);
       remove.addEventListener('click', () => {
         this.removeBtnEventListener(remove, book.time);
