@@ -26,3 +26,20 @@ body {
 #books > div > p {
   margin: 8px 0;
 }
+
+.underline {
+  width: 50px;
+  height: 4px;
+  background-color: black;
+  margin: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+form > * {
+  margin: 0.5rem;
+}
