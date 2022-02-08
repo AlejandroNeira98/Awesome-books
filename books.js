@@ -1,15 +1,15 @@
 const titleInput = document.getElementById('title-input');
 const authorInput = document.getElementById('author-input');
 const submitButton = document.getElementById('submit-button');
-let books = [];
+var books = [];
 
 function removeBook(book) {
-  books = books.filter((element) => element.title !== book.title);
+  books = books.filter( element => JSON.stringify(element) !== JSON.stringify(book));  
   localStorage.setItem('books', JSON.stringify(books));
 }
 
 function removeBtnEventListener(element, title, author) {
-  const book = { title, author };
+  const book = {'title': title , 'author': author };
   removeBook(book);
   element.parentElement.remove();
 }
@@ -55,5 +55,7 @@ window.addEventListener('load', () => {
     const title = titleInput.value;
     const book = { title, author };
     addBookToLocalStorage(book);
+    authorInput.value = null;
+    titleInput.value = null;
   });
 });
