@@ -5,20 +5,33 @@ const submitButton = document.getElementById('submit-button');
 class methods {
   constructor() {
 
-    this.removeBook = function (book) {
-      books = books.filter((element) => JSON.stringify(element) !== JSON.stringify(book));
-      localStorage.setItem('books', JSON.stringify(books));
+    this.books = [];
+
+    this.init = function () {
+      if (JSON.parse(localStorage.getItem('books')) !== null) {
+        this.books = JSON.parse(localStorage.getItem('books'));
+        this.books.forEach((element) => {
+          method.addBookToDocument(element);
+        });
+      }
+    }
+
+    this.removeBook = function (time) {
+      this.books = this.books.filter((book) => book.time !== time);
+      localStorage.setItem('books', JSON.stringify(this.books));
     };
 
-    this.removeBtnEventListener = function (element, title, author) {
-      const book = { title, author };
-      this.removeBook(book);
+    this.removeBtnEventListener = function (element, time) {
+      this.removeBook(time);
       element.parentElement.remove();
     };
 
     this.addBookToDocument = function (book) {
       const booksDiv = document.getElementById('books');
+      
       const bookDiv = document.createElement('div');
+      bookDiv.setAttribute('data-time', book.time);
+      
       const title = document.createElement('p');
       title.classList.add('title');
       const author = document.createElement('p');
@@ -33,14 +46,24 @@ class methods {
       bookDiv.append(title, author, remove);
       booksDiv.append(bookDiv);
       remove.addEventListener('click', () => {
-        this.removeBtnEventListener(remove, book.title, book.author);
+        this.removeBtnEventListener(remove, book.time);
       });
     };
 
-    this.addBookToLocalStorage = function (book) {
-      books.push(book);
-      localStorage.setItem('books', JSON.stringify(books));
-      this.addBookToDocument(book);
+    this.addBookToLocalStorage = function (title, author) {
+      const d = new Date();
+      const time = d.getTime();
+      this.books.push({
+        'title': title,
+        'author': author,
+        'time': time
+      });
+      localStorage.setItem('books', JSON.stringify(this.books));
+      this.addBookToDocument({
+        'title': title,
+        'author': author,
+        'time': time
+      });
     };
 
   }
@@ -49,19 +72,14 @@ class methods {
 const method = new methods;
 
 window.addEventListener('load', () => {
-  if (JSON.parse(localStorage.getItem('books')) !== null) {
-    books = JSON.parse(localStorage.getItem('books'));
-    books.forEach((element) => {
-      method.addBookToDocument(element);
-    });
-  }
+  
+  method.init();
 
   submitButton.addEventListener('click', (e) => {
     e.preventDefault();
     const author = authorInput.value;
     const title = titleInput.value;
-    const book = { title, author };
-    method.addBookToLocalStorage(book);
+    method.addBookToLocalStorage(title, author);
     authorInput.value = null;
     titleInput.value = null;
   });
