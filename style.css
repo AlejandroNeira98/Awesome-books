@@ -135,3 +135,7 @@ h2 {
 #contact > p:nth-child(1) {
   margin-top: 3rem;
 }
+
+.hidden {
+  display: none;
+}
