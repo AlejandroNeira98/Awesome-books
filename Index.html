@@ -10,24 +10,25 @@
 <body>
 
   <header>
-  <p>Awesome Books</p>
+  <h3>Awesome Books</h3>
   <nav>
-    <div>List</div>
-    <div>Add new</div>
-    <div>Contact</div>
+    <a href="#books">List</a>
+    <a href="#form">Add new</a>
+    <a href="#contact">Contact</a>
   </nav>
   </header>
 
-  <div id="date"></div>
+  <div id="date">
+    <time datetime="2017-02-14">March 19th 2021, 9:52:32 am</time>
+  </div>
 
-  <h1>Awesome Books</h1>
+  <section class="all-books">
+    <h2>Awesome Books</h2>  
+    <main id="books">
+    </main>
+  </section>
 
-  <main id="books">
-  </main>
-
-  <div class="underline"></div>
-
-  <form>
+  <form id="form">
   <h2>Add a new book</h2>
   <input type="text" name="title" id="title-input" placeholder="Title"/>
   <input type="text" name="author" id="author-input" placeholder="Author"/>
