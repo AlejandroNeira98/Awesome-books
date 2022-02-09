@@ -9,7 +9,7 @@ window.addEventListener('load', () => {
   const booksSection = document.querySelector('.all-books');
   const formSection = document.querySelector('#form');
   const contactSection = document.querySelector('#contact');
-  const timeElement = document.querySelector('time');
+  const timeElement = document.querySelector('span');
 
   setInterval(() => {
     currenTime(timeElement);
